@@ -32,25 +32,31 @@ echo
 if [[ $grepsed == 1 ]]
 then
 	echo Now executing 'grep' on $filename searching for $searchterm
+	echo
 	cat $filename | grep $searchterm
 elif [[ $grepsed == 2 ]]
 then
 	echo What do you want to replace your term with?
+	echo
 	read -p 'Replacement Term: ' replaceterm
-
+	echo
 	echo Do you want to create a new file with the new terms? [Y or N]
-	
+	echo
 	echo [Y]es
 	echo [N]o
+	echo
 	read -p 'Choice: ' newfilechoice
 	echo
 	if [[ $newfilechoice == [yY] || $newfilechoice == [yY][eE][sS] ]]
 	then
 		echo What would you like to name the file?
+		echo
 		read -p 'Output File: ' outputfile
 		sed s/$searchterm/$replaceterm/g $filename > $outputfile
+		echo File $outputfile has been created with $replaceterm
 	elif [[ $newfilechoice == [nN] || $newfilechoice == [nN][oO] ]]
 	then
 		sed -i s/$searchterm/$replaceterm/g $filename
+		echo File $filename has been modified with $replaceterm
 	fi
 fi
